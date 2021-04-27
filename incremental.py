@@ -6,7 +6,12 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from Datapreprocess import *
+import boto3
 
+
+access_key ='YOUR_KEY'
+access_secret = 'YOUR_KEY'
+bucket_name = 'YOUR_BUCKET'
 
 # independent function
 #function to represent any incremental dataset
@@ -130,7 +135,15 @@ def main():
   df = encodeData(df)
   print("Dataframe Cleaned and Encoded...........")
   print(df.head())
-  print("Visualise the Basic clusters....")
+
+  client_s3 = boto3.client(
+    's3',
+    aws_access_key_id=access_key,
+    aws_secret_access_key=access_secret
+  )
+  print('Downloading Basic Clusters File')
+  client_s3.download_file(bucket_name, 'record.csv', 'record.csv')
+
   visualize_basic()
   print("Incremental Clustering Processing...........")
   df_incremental, df_og = incremental_cluster(df)

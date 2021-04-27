@@ -3,11 +3,9 @@ import pandas as pd
 
 #Preprocessing
 from sklearn import preprocessing
-import nltk
 import pandas as pd
 import time
 import re
-from nltk.stem import PorterStemmer
 
 def cleanData(df):
 	start = time.time()
